@@ -84,13 +84,13 @@ Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml-labltk-devel
 
 %description togl-devel
-Togl TK widget for lablGL, to be used with labltk.
+Togl Tk widget for lablGL, to be used with labltk.
 
 This package contains files needed to develop OCaml programs using
 this library.
 
 %description togl-devel -l pl
-Widget Togl u¿ywaj±cy TK dla lablGL. Mo¿e byæ on u¿ywany wraz z
+Widget Togl u¿ywaj±cy Tk dla lablGL. Mo¿e byæ on u¿ywany wraz z
 labltk.
 
 Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
