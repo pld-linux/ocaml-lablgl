@@ -113,7 +113,7 @@ lablgl.
 LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
 biblioteki GL i GLU.
 
-Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgl.
+Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
 %setup -q -n lablGL-%{version}
