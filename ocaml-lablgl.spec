@@ -24,7 +24,7 @@ This package contains files needed to run bytecode executables using
 this library.
 
 %description -l pl
-LablGL umo¿liwia u¿ywania OpenGL w OCamlu. Dostêpne s± wszystkie
+LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
 biblioteki GL i GLU.
 
 Pakiet ten zawiera binaria potrzebne do uruchamiania programów
@@ -45,7 +45,7 @@ This package contains files needed to develop OCaml programs using
 this library.
 
 %description devel -l pl
-LablGL umo¿liwia u¿ywania OpenGL w OCamlu. Dostêpne s± wszystkie
+LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
 biblioteki GL i GLU.
 
 Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
@@ -108,7 +108,7 @@ This package contains OCaml toplevel interactive system linked with
 lablgl.
 
 %description toplevel -l pl
-LablGL umo¿liwia u¿ywania OpenGL w OCamlu. Dostêpne s± wszystkie
+LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
 biblioteki GL i GLU.
 
 Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgl.
