@@ -1,7 +1,7 @@
 Summary:	OpenGL binding for OCaml
 Summary(pl):	Wi±zania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	0.97
+Version:	0.99
 Release:	1
 License:	BSD
 Group:		Libraries
@@ -127,17 +127,15 @@ sed -e 's|^TKINCLUDES|#&|;
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 %{__make} install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
 gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli
 mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli.gz .
-
-(cd $RPM_BUILD_ROOT%{_libdir}/ocaml && ln -s lablgl/dll*.so .)
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
@@ -168,14 +166,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_libdir}/ocaml/lablgl
-%attr(755,root,root) %{_libdir}/ocaml/lablgl/dlllablgl.so
-%{_libdir}/ocaml/dlllablgl.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgl.so
 
 %files togl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/lablgl/dlltogl.so
-%{_libdir}/ocaml/dlltogl.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlltogl.so
 
 %files togl-devel
 %defattr(644,root,root,755)
@@ -186,6 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc COPYRIGHT CHANGES README
+%dir %{_libdir}/ocaml/lablgl
 %{_libdir}/ocaml/lablgl/gl*
 %{_libdir}/ocaml/lablgl/lablgl.*
 %{_libdir}/ocaml/lablgl/liblablgl.a
