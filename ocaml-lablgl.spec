@@ -7,6 +7,7 @@ License:	BSD
 Group:		Libraries
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
+# Source0-md5:	5b5ea7889536246c58a5e747d61d6d14
 BuildRequires:	ocaml >= 3.04-7
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
