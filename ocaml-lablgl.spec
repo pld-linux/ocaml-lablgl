@@ -1,15 +1,16 @@
 Summary:	OpenGL binding for OCaml
 Summary(pl):	Wi±zania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	0.99
-Release:	2
+Version:	1.00
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
-# Source0-md5:	5b5ea7889536246c58a5e747d61d6d14
+# Source0-md5:	92bcfe3121650c43e5bc4c018778405b
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	glut-devel >= 3.7
 BuildRequires:	ocaml >= 3.07
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
@@ -95,6 +96,37 @@ labltk.
 Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
 tej biblioteki.
 
+%package glut
+Summary:	GLUT binding for OCaml
+Summary(pl):	Wi±zanie OCamla dla biblioteki GLUT
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+%requires_eq	ocaml-runtime
+
+%description glut
+The lablglut library is an OCaml binding for GLUT version 3.7. GLUT
+(GL Utility Toolkit) is a portable windowing library for OpenGL, 
+written by Mark Kilgard.
+
+%description glut -l pl
+Biblioteka lablglut to wi±zanie OCamla dla biblioteki GLUT w wersji
+3.7. GLUT (czyli GL Utility Toolkit) to przeno¶na biblioteka okienkowa
+dla OpenGL-a, napisana przez Marka Kilgarda.
+
+%package glut-devel
+Summary:	GLUT binding for OCaml - development part
+Summary(pl):	Wi±zanie OCamla dla biblioteki GLUT - czê¶æ programistyczna
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+%requires_eq	ocaml
+
+%description glut-devel
+This package contains development files for GLUT binding for OCaml.
+
+%description glut-devel -l pl
+Ten pakiet zawiera pliki programistyczne wi±zania OCamla dla
+biblioteki GLUT.
+
 %package toplevel
 Summary:	OpenGL binding for OCaml - interactive system
 Summary(pl):	Wi±zania OpenGL dla OCamla - system interaktywny
@@ -116,43 +148,46 @@ biblioteki GL i GLU.
 Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
-%setup -q -n lablGL-%{version}
+%setup -q -n lablgl-%{version}
 
 %build
 sed -e 's|^TKINCLUDES|#&|;
-	s|^GLLIBS.*|GLLIBS = -L%{_prefix}/X11R6/lib -lGL -lGLU -lXmu|;
+	s|^GLLIBS.*|GLLIBS = -L%{_prefix}/X11R6/%{_lib} -lGL -lGLU -lXmu|;
 	s|^COPTS.*|COPTS = %{rpmcflags} -c -fPIC|;' \
 	Makefile.config.ex > Makefile.config
 %{__make} all opt
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/{lablgl,togl}},%{_examplesdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/{lablgl,togl}}} \
+	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/{LablGlut,Togl}
 
 %{__make} install \
-	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl \
+	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL \
+	DLLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli .
+mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/*.mli .
 
-cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -r LablGlut/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/LablGlut
+cp -r Togl/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/Togl
 
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgl/META <<EOF
 # Specifications for the "lablgl" library:
 requires = ""
 version = "%{version}"
-directory = "+lablgl"
+directory = "+lablGL"
 archive(byte) = "lablgl.cma"
 archive(native) = "lablgl.cmxa"
 linkopts = ""
 EOF
 
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/togl/META <<EOF
-# Specifications for the "lablgl" library:
-requires = "labgl"
+# Specifications for the "togl" library:
+requires = "lablgl"
 version = "%{version}"
-directory = "+lablgl"
+directory = "+lablGL"
 archive(byte) = "togl.cma"
 archive(native) = "togl.cmxa"
 linkopts = ""
@@ -163,7 +198,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc COPYRIGHT CHANGES README
 %attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgl.so
+
+%files devel
+%defattr(644,root,root,755)
+%doc *.mli
+%dir %{_libdir}/ocaml/lablGL
+%{_libdir}/ocaml/lablGL/gl*
+%{_libdir}/ocaml/lablGL/lablgl.*
+%{_libdir}/ocaml/lablGL/liblablgl.a
+%{_libdir}/ocaml/lablGL/raw.*
+%{_libdir}/ocaml/site-lib/lablgl
+%{_examplesdir}/%{name}-%{version}
+
+%files glut
+%defattr(644,root,root,755)
+%doc LablGlut/{CHANGES,COPYRIGHT,ChangeLog,README,THANKS,TODO}
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglut.so
+
+%files glut-devel
+%defattr(644,root,root,755)
+%{_libdir}/ocaml/lablGL/lablglut.*
+%{_libdir}/ocaml/lablGL/liblablglut.a
 
 %files togl
 %defattr(644,root,root,755)
@@ -171,22 +228,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files togl-devel
 %defattr(644,root,root,755)
-%{_libdir}/ocaml/lablgl/togl.*
-%{_libdir}/ocaml/lablgl/libtogl.*
+%{_libdir}/ocaml/lablGL/togl.*
+%{_libdir}/ocaml/lablGL/libtogl.a
 %{_libdir}/ocaml/site-lib/togl
-
-%files devel
-%defattr(644,root,root,755)
-%doc COPYRIGHT CHANGES README *.mli
-%dir %{_libdir}/ocaml/lablgl
-%{_libdir}/ocaml/lablgl/gl*
-%{_libdir}/ocaml/lablgl/lablgl.*
-%{_libdir}/ocaml/lablgl/liblablgl.a
-%{_libdir}/ocaml/lablgl/raw.*
-%{_examplesdir}/%{name}-%{version}
-%{_libdir}/ocaml/site-lib/lablgl
 
 %files toplevel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/ocaml/lablgl/lablgltop
