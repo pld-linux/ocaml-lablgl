@@ -134,8 +134,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/{lablg
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
-gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli
-mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli.gz .
+mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli .
 
 cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -178,7 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc COPYRIGHT CHANGES README
+%doc COPYRIGHT CHANGES README *.mli
 %dir %{_libdir}/ocaml/lablgl
 %{_libdir}/ocaml/lablgl/gl*
 %{_libdir}/ocaml/lablgl/lablgl.*
