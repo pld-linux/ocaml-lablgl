@@ -1,12 +1,12 @@
 Summary:	OpenGL binding for OCaml
 Summary(pl):	Wi±zania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	1.00
+Version:	1.01
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
-# Source0-md5:	92bcfe3121650c43e5bc4c018778405b
+# Source0-md5:	088a2b7bd5640ce99e1b31d641a60e81
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -214,7 +214,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files glut
 %defattr(644,root,root,755)
-%doc LablGlut/{CHANGES,COPYRIGHT,ChangeLog,README,THANKS,TODO}
+%doc LablGlut/{COPYRIGHT,ChangeLog,README,THANKS,TODO}
 %attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglut.so
 
 %files glut-devel
