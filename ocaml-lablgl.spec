@@ -5,14 +5,14 @@ Version:	0.99
 Release:	1
 License:	BSD
 Group:		Libraries
-URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
 # Source0-md5:	5b5ea7889536246c58a5e747d61d6d14
+URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
+BuildRequires:	OpenGL-devel
+BuildRequires:	XFree86-devel
 BuildRequires:	ocaml >= 3.04-7
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
-BuildRequires:	OpenGL-devel
-BuildRequires:	XFree86-devel
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 %requires_eq	ocaml-runtime
@@ -127,8 +127,7 @@ sed -e 's|^TKINCLUDES|#&|;
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/{lablgl,togl}},%{_examplesdir}/%{name}-%{version}}
 
 %{__make} install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl \
@@ -138,10 +137,8 @@ install -d $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli
 mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgl/*.mli.gz .
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/{lablgl,togl}
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgl/META <<EOF
 # Specifications for the "lablgl" library:
 requires = ""
