@@ -8,7 +8,7 @@ Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
 # Source0-md5:	5b5ea7889536246c58a5e747d61d6d14
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
-BuildRequires:	OpenGL-devel
+BuildRequires:	XFree86-OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	ocaml >= 3.07
 BuildRequires:	ocaml-camlp4
