@@ -162,8 +162,6 @@ archive(native) = "togl.cmxa"
 linkopts = ""
 EOF
 
-gzip -9nf COPYRIGHT CHANGES README
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -186,7 +184,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.gz
+%doc COPYRIGHT CHANGES README
 %{_libdir}/ocaml/lablgl/gl*
 %{_libdir}/ocaml/lablgl/lablgl.*
 %{_libdir}/ocaml/lablgl/liblablgl.a
