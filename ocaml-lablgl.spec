@@ -155,7 +155,7 @@ sed -e 's|^TKINCLUDES|#&|;
 	s|^GLLIBS.*|GLLIBS = -L%{_prefix}/X11R6/%{_lib} -lGL -lGLU -lXmu|;
 	s|^COPTS.*|COPTS = %{rpmcflags} -c -fPIC|;' \
 	Makefile.config.ex > Makefile.config
-%{__make} all opt
+%{__make} -j1 all opt
 
 %install
 rm -rf $RPM_BUILD_ROOT
