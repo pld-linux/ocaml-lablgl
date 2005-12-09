@@ -214,7 +214,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files glut
 %defattr(644,root,root,755)
-%doc LablGlut/{COPYRIGHT,ChangeLog,README,THANKS,TODO}
 %attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglut.so
 
 %files glut-devel
