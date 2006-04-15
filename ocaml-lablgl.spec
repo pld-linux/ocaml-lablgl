@@ -1,8 +1,9 @@
+%define		ocaml_ver	3.09.1
 Summary:	OpenGL binding for OCaml
 Summary(pl):	Wi±zania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.02
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
@@ -11,7 +12,7 @@ URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	glut-devel >= 3.7
-BuildRequires:	ocaml >= 3.07
+BuildRequires:	ocaml >= %{ocaml_ver}
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
 BuildRequires:	tcl-devel
@@ -105,7 +106,7 @@ Requires:	%{name} = %{version}-%{release}
 
 %description glut
 The lablglut library is an OCaml binding for GLUT version 3.7. GLUT
-(GL Utility Toolkit) is a portable windowing library for OpenGL, 
+(GL Utility Toolkit) is a portable windowing library for OpenGL,
 written by Mark Kilgard.
 
 %description glut -l pl
