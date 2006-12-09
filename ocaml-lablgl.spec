@@ -8,15 +8,16 @@ License:	BSD
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
 # Source0-md5:	b50e4e7d856c26bc4449151e4307b37b
+Patch0:		%{name}-tk85.patch
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
-BuildRequires:	OpenGL-devel
-BuildRequires:	XFree86-devel
-BuildRequires:	glut-devel >= 3.7
+BuildRequires:	OpenGL-GLX-devel
+BuildRequires:	OpenGL-glut-devel >= 3.7
 BuildRequires:	ocaml >= %{ocaml_ver}
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
 BuildRequires:	tcl-devel
-BuildRequires:	tk-devel
+BuildRequires:	tk-devel >= 4.0
+BuildRequires:	xorg-lib-libXmu-devel
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -60,8 +61,8 @@ Summary:	Tk widget for lablGL
 Summary(pl):	Widget Tk dla lablGL
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-%requires_eq	ocaml-runtime
 %requires_eq	ocaml-labltk
+%requires_eq	ocaml-runtime
 
 %description togl
 Togl Tk widget for lablGL, to be used with labltk.
@@ -150,10 +151,11 @@ Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
 %setup -q -n lablgl-%{version}
+%patch0 -p1
 
 %build
-sed -e 's|^TKINCLUDES|#&|;
-	s|^GLLIBS.*|GLLIBS = -L%{_prefix}/X11R6/%{_lib} -lGL -lGLU -lXmu|;
+sed -e 's|^\(X\|TK\)INCLUDES|#&|;
+	s|^GLLIBS.*|GLLIBS = -lGL -lGLU -lXmu|;
 	s|^COPTS.*|COPTS = %{rpmcflags} -c -fPIC|;' \
 	Makefile.config.ex > Makefile.config
 %{__make} -j1 all opt
