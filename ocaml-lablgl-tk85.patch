@@ -1,0 +1,11 @@
+--- lablgl-1.02/Togl/src/Togl/togl.c.orig	2004-11-02 08:03:34.000000000 +0100
++++ lablgl-1.02/Togl/src/Togl/togl.c	2006-12-09 01:41:38.907716138 +0100
+@@ -148,6 +148,8 @@
+ #  include "tkInt8.3.h"
+ #elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4
+ #  include "tkInt8.4.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==5
++#  include <tk-private/generic/tkInt.h>
+ #else
+    Sorry, you will have to edit togl.c to include the right tkInt.h file
+ #endif
