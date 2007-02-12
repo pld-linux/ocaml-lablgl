@@ -1,6 +1,6 @@
 %define		ocaml_ver	1:3.09.2
 Summary:	OpenGL binding for OCaml
-Summary(pl):	Wi±zania OpenGL dla OCamla
+Summary(pl.UTF-8):   WiÄ…zania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.02
 Release:	4
@@ -28,16 +28,16 @@ GLU libraries are available.
 This package contains files needed to run bytecode executables using
 this library.
 
-%description -l pl
-LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
+%description -l pl.UTF-8
+LablGL umoÅ¼liwia uÅ¼ywanie OpenGL w OCamlu. DostÄ™pne sÄ… wszystkie
 biblioteki GL i GLU.
 
-Pakiet ten zawiera binaria potrzebne do uruchamiania programów
-u¿ywaj±cych tej biblioteki.
+Pakiet ten zawiera binaria potrzebne do uruchamiania programÃ³w
+uÅ¼ywajÄ…cych tej biblioteki.
 
 %package devel
 Summary:	OpenGL binding for OCaml - development part
-Summary(pl):	Wi±zania OpenGL dla OCamla - cze¶æ programistyczna
+Summary(pl.UTF-8):   WiÄ…zania OpenGL dla OCamla - czeÅ›Ä‡ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -49,16 +49,16 @@ GLU libraries are available.
 This package contains files needed to develop OCaml programs using
 this library.
 
-%description devel -l pl
-LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
+%description devel -l pl.UTF-8
+LablGL umoÅ¼liwia uÅ¼ywanie OpenGL w OCamlu. DostÄ™pne sÄ… wszystkie
 biblioteki GL i GLU.
 
-Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
+Pakiet ten zawiera pliki niezbÄ™dne do tworzenia programÃ³w uÅ¼ywajÄ…cych
 tej biblioteki.
 
 %package togl
 Summary:	Tk widget for lablGL
-Summary(pl):	Widget Tk dla lablGL
+Summary(pl.UTF-8):   Widget Tk dla lablGL
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml-labltk
@@ -70,16 +70,16 @@ Togl Tk widget for lablGL, to be used with labltk.
 This package contains files needed to run bytecode executables using
 this library.
 
-%description togl -l pl
-Widget Togl u¿ywaj±cy Tk dla lablGL. Mo¿e byæ on u¿ywany wraz z
+%description togl -l pl.UTF-8
+Widget Togl uÅ¼ywajÄ…cy Tk dla lablGL. MoÅ¼e byÄ‡ on uÅ¼ywany wraz z
 labltk.
 
-Pakiet ten zawiera binaria potrzebne do uruchamiania programów
-u¿ywaj±cych tej biblioteki.
+Pakiet ten zawiera binaria potrzebne do uruchamiania programÃ³w
+uÅ¼ywajÄ…cych tej biblioteki.
 
 %package togl-devel
 Summary:	Tk widget for lablGL - development part
-Summary(pl):	Widget Tk dla lablGL - cze¶æ programistyczna
+Summary(pl.UTF-8):   Widget Tk dla lablGL - czeÅ›Ä‡ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -91,16 +91,16 @@ Togl Tk widget for lablGL, to be used with labltk.
 This package contains files needed to develop OCaml programs using
 this library.
 
-%description togl-devel -l pl
-Widget Togl u¿ywaj±cy Tk dla lablGL. Mo¿e byæ on u¿ywany wraz z
+%description togl-devel -l pl.UTF-8
+Widget Togl uÅ¼ywajÄ…cy Tk dla lablGL. MoÅ¼e byÄ‡ on uÅ¼ywany wraz z
 labltk.
 
-Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
+Pakiet ten zawiera pliki niezbÄ™dne do tworzenia programÃ³w uÅ¼ywajÄ…cych
 tej biblioteki.
 
 %package glut
 Summary:	GLUT binding for OCaml
-Summary(pl):	Wi±zanie OCamla dla biblioteki GLUT
+Summary(pl.UTF-8):   WiÄ…zanie OCamla dla biblioteki GLUT
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml-runtime
@@ -110,14 +110,14 @@ The lablglut library is an OCaml binding for GLUT version 3.7. GLUT
 (GL Utility Toolkit) is a portable windowing library for OpenGL,
 written by Mark Kilgard.
 
-%description glut -l pl
-Biblioteka lablglut to wi±zanie OCamla dla biblioteki GLUT w wersji
-3.7. GLUT (czyli GL Utility Toolkit) to przeno¶na biblioteka okienkowa
+%description glut -l pl.UTF-8
+Biblioteka lablglut to wiÄ…zanie OCamla dla biblioteki GLUT w wersji
+3.7. GLUT (czyli GL Utility Toolkit) to przenoÅ›na biblioteka okienkowa
 dla OpenGL-a, napisana przez Marka Kilgarda.
 
 %package glut-devel
 Summary:	GLUT binding for OCaml - development part
-Summary(pl):	Wi±zanie OCamla dla biblioteki GLUT - czê¶æ programistyczna
+Summary(pl.UTF-8):   WiÄ…zanie OCamla dla biblioteki GLUT - czÄ™Å›Ä‡ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -125,13 +125,13 @@ Requires:	%{name} = %{version}-%{release}
 %description glut-devel
 This package contains development files for GLUT binding for OCaml.
 
-%description glut-devel -l pl
-Ten pakiet zawiera pliki programistyczne wi±zania OCamla dla
+%description glut-devel -l pl.UTF-8
+Ten pakiet zawiera pliki programistyczne wiÄ…zania OCamla dla
 biblioteki GLUT.
 
 %package toplevel
 Summary:	OpenGL binding for OCaml - interactive system
-Summary(pl):	Wi±zania OpenGL dla OCamla - system interaktywny
+Summary(pl.UTF-8):   WiÄ…zania OpenGL dla OCamla - system interaktywny
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -143,8 +143,8 @@ GLU libraries are available.
 This package contains OCaml toplevel interactive system linked with
 lablgl.
 
-%description toplevel -l pl
-LablGL umo¿liwia u¿ywanie OpenGL w OCamlu. Dostêpne s± wszystkie
+%description toplevel -l pl.UTF-8
+LablGL umoÅ¼liwia uÅ¼ywanie OpenGL w OCamlu. DostÄ™pne sÄ… wszystkie
 biblioteki GL i GLU.
 
 Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
