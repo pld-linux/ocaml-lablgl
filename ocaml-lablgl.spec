@@ -1,6 +1,6 @@
 %define		ocaml_ver	1:3.09.2
 Summary:	OpenGL binding for OCaml
-Summary(pl.UTF-8):   Wiązania OpenGL dla OCamla
+Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.02
 Release:	4
@@ -37,7 +37,7 @@ używających tej biblioteki.
 
 %package devel
 Summary:	OpenGL binding for OCaml - development part
-Summary(pl.UTF-8):   Wiązania OpenGL dla OCamla - cześć programistyczna
+Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla - cześć programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -58,7 +58,7 @@ tej biblioteki.
 
 %package togl
 Summary:	Tk widget for lablGL
-Summary(pl.UTF-8):   Widget Tk dla lablGL
+Summary(pl.UTF-8):	Widget Tk dla lablGL
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml-labltk
@@ -79,7 +79,7 @@ używających tej biblioteki.
 
 %package togl-devel
 Summary:	Tk widget for lablGL - development part
-Summary(pl.UTF-8):   Widget Tk dla lablGL - cześć programistyczna
+Summary(pl.UTF-8):	Widget Tk dla lablGL - cześć programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -100,7 +100,7 @@ tej biblioteki.
 
 %package glut
 Summary:	GLUT binding for OCaml
-Summary(pl.UTF-8):   Wiązanie OCamla dla biblioteki GLUT
+Summary(pl.UTF-8):	Wiązanie OCamla dla biblioteki GLUT
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml-runtime
@@ -117,7 +117,7 @@ dla OpenGL-a, napisana przez Marka Kilgarda.
 
 %package glut-devel
 Summary:	GLUT binding for OCaml - development part
-Summary(pl.UTF-8):   Wiązanie OCamla dla biblioteki GLUT - część programistyczna
+Summary(pl.UTF-8):	Wiązanie OCamla dla biblioteki GLUT - część programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -131,7 +131,7 @@ biblioteki GLUT.
 
 %package toplevel
 Summary:	OpenGL binding for OCaml - interactive system
-Summary(pl.UTF-8):   Wiązania OpenGL dla OCamla - system interaktywny
+Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla - system interaktywny
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
