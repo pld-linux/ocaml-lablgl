@@ -8,7 +8,6 @@ License:	BSD
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
 # Source0-md5:	dcf05a0cffffdf06cbe0fe55f9eff974
-Patch0:		%{name}-tk85.patch
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	OpenGL-glut-devel >= 3.7
@@ -150,8 +149,7 @@ biblioteki GL i GLU.
 Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
-%setup -q -n lablgl-%{version}
-%patch0 -p1
+%setup -q -n lablGL-%{version}
 
 %build
 sed -e 's|^\(X\|TK\)INCLUDES|#&|;
