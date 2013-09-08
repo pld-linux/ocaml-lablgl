@@ -6,9 +6,10 @@ Version:	1.04
 Release:	3
 License:	BSD
 Group:		Libraries
-Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgl-%{version}.tar.gz
+#Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
+Source0:	https://forge.ocamlcore.org/frs/download.php/814/lablgl-%{version}.tar.gz
 # Source0-md5:	dcf05a0cffffdf06cbe0fe55f9eff974
-URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
+URL:		https://forge.ocamlcore.org/projects/lablgl/
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	OpenGL-glut-devel >= 3.7
 BuildRequires:	ocaml >= %{ocaml_ver}
