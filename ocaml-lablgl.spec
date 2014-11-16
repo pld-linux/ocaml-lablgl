@@ -2,13 +2,13 @@
 Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	1.04
-Release:	4
+Version:	1.05
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
-Source0:	https://forge.ocamlcore.org/frs/download.php/814/lablgl-%{version}.tar.gz
-# Source0-md5:	dcf05a0cffffdf06cbe0fe55f9eff974
+Source0:	https://forge.ocamlcore.org/frs/download.php/1254/lablgl-%{version}.tar.gz
+# Source0-md5:	b64662bf47f2973f836d33ae1365244f
 URL:		https://forge.ocamlcore.org/projects/lablgl/
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	OpenGL-glut-devel >= 3.7
@@ -150,7 +150,7 @@ biblioteki GL i GLU.
 Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
-%setup -q -n lablGL-%{version}
+%setup -q -n lablgl-%{version}
 
 %build
 sed -e 's|^\(X\|TK\)INCLUDES|#&|;
@@ -207,6 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.mli
 %dir %{_libdir}/ocaml/lablGL
+%{_libdir}/ocaml/lablGL/build.ml
 %{_libdir}/ocaml/lablGL/gl*
 %{_libdir}/ocaml/lablGL/lablgl.*
 %{_libdir}/ocaml/lablGL/liblablgl.a
