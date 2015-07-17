@@ -2,8 +2,8 @@
 # Conditional build:
 %bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
 
-%ifarch x32
-# not yet available on x32 (ocaml 4.02.1), remove when upstream will support it
+# not yet available on x32 (ocaml 4.02.1), update when upstream will support it
+%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9 
 %undefine	with_ocaml_opt
 %endif
 
@@ -12,7 +12,7 @@ Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.05
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries
 #Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
@@ -245,4 +245,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files toplevel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/lablgl
+%attr(755,root,root) %{_bindir}/lablglut
