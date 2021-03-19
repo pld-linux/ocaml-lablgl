@@ -7,18 +7,22 @@
 %undefine	with_ocaml_opt
 %endif
 
+%if %{without ocaml_opt}
+%define		_enable_debug_packages	0
+%endif
+
 %define		ocaml_ver	1:3.09.2
 Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	1.05
-Release:	5
+Version:	1.06
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
-Source0:	https://forge.ocamlcore.org/frs/download.php/1254/lablgl-%{version}.tar.gz
-# Source0-md5:	b64662bf47f2973f836d33ae1365244f
-URL:		https://forge.ocamlcore.org/projects/lablgl/
+Source0:	https://github.com/garrigue/lablgl/archive/v%{version}/lablgl-%{version}.tar.gz
+# Source0-md5:	8ee7a37b016095c4f7cd066f0ebd4436
+URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	OpenGL-glut-devel >= 3.7
 BuildRequires:	ocaml >= %{ocaml_ver}
@@ -160,6 +164,9 @@ Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
 %setup -q -n lablgl-%{version}
+
+find LablGlut/examples -name '*.ml' -print0 | xargs --null \
+	%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+lablglut(\s|$),#!%{_bindir}/lablglut\1,' \
 
 %build
 sed -e 's|^\(X\|TK\)INCLUDES|#&|;
