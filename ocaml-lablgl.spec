@@ -16,7 +16,7 @@ Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.06
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 #Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
@@ -177,7 +177,7 @@ sed -e 's|^\(X\|TK\)INCLUDES|#&|;
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/{lablgl,togl}}} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/{LablGlut,Togl}
 
 %{__make} install \
@@ -191,25 +191,7 @@ mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/*.mli .
 cp -r LablGlut/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/LablGlut
 cp -r Togl/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/Togl
 
-cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgl/META <<EOF
-# Specifications for the "lablgl" library:
-requires = ""
-version = "%{version}"
-directory = "+lablGL"
-archive(byte) = "lablgl.cma"
-archive(native) = "lablgl.cmxa"
-linkopts = ""
-EOF
-
-cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/togl/META <<EOF
-# Specifications for the "togl" library:
-requires = "lablgl"
-version = "%{version}"
-directory = "+lablGL"
-archive(byte) = "togl.cma"
-archive(native) = "togl.cmxa"
-linkopts = ""
-EOF
+cp -p META $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -217,18 +199,18 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYRIGHT CHANGES README
+%dir %{_libdir}/ocaml/lablGL
+%{_libdir}/ocaml/lablGL/META
 %attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgl.so
 
 %files devel
 %defattr(644,root,root,755)
 %doc *.mli
-%dir %{_libdir}/ocaml/lablGL
 %{_libdir}/ocaml/lablGL/build.ml
 %{_libdir}/ocaml/lablGL/gl*
 %{_libdir}/ocaml/lablGL/lablgl.*
 %{_libdir}/ocaml/lablGL/liblablgl.a
 %{_libdir}/ocaml/lablGL/raw.*
-%{_libdir}/ocaml/site-lib/lablgl
 %{_examplesdir}/%{name}-%{version}
 
 %files glut
@@ -248,7 +230,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/ocaml/lablGL/togl.*
 %{_libdir}/ocaml/lablGL/libtogl.a
-%{_libdir}/ocaml/site-lib/togl
 
 %files toplevel
 %defattr(644,root,root,755)
