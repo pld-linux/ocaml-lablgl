@@ -3,7 +3,7 @@
 %bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
 
 # not yet available on x32 (ocaml 4.02.1), update when upstream will support it
-%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9 
+%ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
 %endif
 
@@ -19,7 +19,7 @@ Version:	1.06
 Release:	2
 License:	BSD
 Group:		Libraries
-#Source0Download: https://forge.ocamlcore.org/frs/?group_id=291
+#Source0Download: https://github.com/garrigue/lablgl/releases
 Source0:	https://github.com/garrigue/lablgl/archive/v%{version}/lablgl-%{version}.tar.gz
 # Source0-md5:	8ee7a37b016095c4f7cd066f0ebd4436
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
@@ -186,7 +186,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/*.mli .
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/*.mli .
 
 cp -r LablGlut/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/LablGlut
 cp -r Togl/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}/Togl
