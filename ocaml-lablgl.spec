@@ -16,7 +16,7 @@ Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
 Version:	1.06
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/garrigue/lablgl/releases
