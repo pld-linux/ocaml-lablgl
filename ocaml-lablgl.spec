@@ -50,7 +50,7 @@ używających tej biblioteki.
 
 %package devel
 Summary:	OpenGL binding for OCaml - development part
-Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla - cześć programistyczna
+Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla - część programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
@@ -92,7 +92,7 @@ używających tej biblioteki.
 
 %package togl-devel
 Summary:	Tk widget for lablGL - development part
-Summary(pl.UTF-8):	Widget Tk dla lablGL - cześć programistyczna
+Summary(pl.UTF-8):	Widget Tk dla lablGL - część programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
