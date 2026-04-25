@@ -1,0 +1,43 @@
+From 882a6547dd032cce66d00f464c60c074103a5b8e Mon Sep 17 00:00:00 2001
+From: "Richard W.M. Jones" <rjones@redhat.com>
+Date: Mon, 17 Feb 2025 09:59:28 +0000
+Subject: [PATCH 3/8] Add a gitignore file to ignore various generated files
+
+---
+ .gitignore | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..f4db3c0
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,24 @@
++*~
++*.cmi
++*.cmo
++*.cmx
++*.cma
++*.cmxa
++*.o
++*.so
++*.a
++
++/Makefile.config
++/LablGlut/src/lablglut
++/LablGlut/src/lablgluttop
++/Togl/src/lablgl
++/Togl/src/lablgltop
++/Togl/src/togl_tags.c
++/Togl/src/togl_tags.h
++/src/gl_tags.c
++/src/gl_tags.h
++/src/glu_tags.c
++/src/glu_tags.h
++/src/raw_tags.h
++/src/var2def
++/src/var2switch
+-- 
+2.48.1
+

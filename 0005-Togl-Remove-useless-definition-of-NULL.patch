@@ -1,0 +1,27 @@
+From 9fe3b86c0e7ff9db55bf722f30637f2b1550288d Mon Sep 17 00:00:00 2001
+From: "Richard W.M. Jones" <rjones@redhat.com>
+Date: Mon, 17 Feb 2025 10:14:02 +0000
+Subject: [PATCH 5/8] Togl: Remove useless definition of NULL
+
+---
+ Togl/src/Togl/togl.h | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/Togl/src/Togl/togl.h b/Togl/src/Togl/togl.h
+index 35e4043..6726a6e 100644
+--- a/Togl/src/Togl/togl.h
++++ b/Togl/src/Togl/togl.h
+@@ -63,10 +63,6 @@
+ #    define CONST84
+ #  endif
+ 
+-#  ifndef NULL
+-#    define NULL 0
+-#  endif
+-
+ #  ifndef TOGL_USE_FONTS
+ #    define TOGL_USE_FONTS 1    /* needed for demos */
+ #  endif
+-- 
+2.48.1
+

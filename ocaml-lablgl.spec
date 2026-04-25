@@ -15,13 +15,28 @@
 Summary:	OpenGL binding for OCaml
 Summary(pl.UTF-8):	Wiązania OpenGL dla OCamla
 Name:		ocaml-lablgl
-Version:	1.06
-Release:	3
+Version:	1.07
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/garrigue/lablgl/releases
 Source0:	https://github.com/garrigue/lablgl/archive/v%{version}/lablgl-%{version}.tar.gz
-# Source0-md5:	8ee7a37b016095c4f7cd066f0ebd4436
+# Source0-md5:	5345199a125069371ef3fc859c55cc43
+# Fix a use-after-free bug
+# https://github.com/garrigue/lablgl/pull/5
+Patch0:		0001-Avoid-possible-use-after-free-in-Togl.patch
+# Fix a build error with the Modern C initiative
+# https://github.com/garrigue/lablgl/pull/6
+Patch1:		0002-Fix-mismatched-pointer-types-for-GCC-14.patch
+# https://github.com/garrigue/lablgl/pull/11
+Patch2:		0003-Add-a-gitignore-file-to-ignore-various-generated-fil.patch
+# Adapt to OCaml 5
+# https://github.com/garrigue/lablgl/pull/10
+Patch3:		0004-Update-Tk-code-for-OCaml-5.patch
+# Fix for Tcl/Tk 9.0
+# https://github.com/garrigue/lablgl/pull/12
+Patch4:		0005-Togl-Remove-useless-definition-of-NULL.patch
+Patch5:		0006-Togl-Remove-use-of-some-Tcl-Tk-macros.patch
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	OpenGL-glut-devel >= 3.7
@@ -164,6 +179,12 @@ Pakiet ten zawiera system interaktywny OCamla skonsolidowany z lablgl.
 
 %prep
 %setup -q -n lablgl-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
 
 find LablGlut/examples -name '*.ml' -print0 | xargs --null \
 	%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+lablglut(\s|$),#!%{_bindir}/lablglut\1,' \

@@ -1,0 +1,441 @@
+From a6bf8ef491141af542281e7bb5ff94543c8dde17 Mon Sep 17 00:00:00 2001
+From: "Richard W.M. Jones" <rjones@redhat.com>
+Date: Mon, 17 Feb 2025 10:07:56 +0000
+Subject: [PATCH 6/8] Togl: Remove use of some Tcl/Tk macros
+
+All of these macros were removed from header files in Tcl/Tk 9.0.
+
+* Erase _ANSI_ARGS_, no compiler has needed this for about 35 years.
+
+* Replace Tk_Offset with offsetof.  Apparently some compilers lacked
+  this, but none that we care about.
+
+* Replace CONST84 with const.
+---
+ Togl/src/Togl/double.c  |  4 +-
+ Togl/src/Togl/gears.c   |  4 +-
+ Togl/src/Togl/stereo.c  | 10 ++---
+ Togl/src/Togl/texture.c | 22 +++++------
+ Togl/src/Togl/togl.c    | 81 ++++++++++++++++++++---------------------
+ Togl/src/Togl/togl.h    |  6 +--
+ 6 files changed, 61 insertions(+), 66 deletions(-)
+
+diff --git a/Togl/src/Togl/double.c b/Togl/src/Togl/double.c
+index ba07257..4e218f8 100644
+--- a/Togl/src/Togl/double.c
++++ b/Togl/src/Togl/double.c
+@@ -153,7 +153,7 @@ display_cb(Togl *togl)
+ 
+ 
+ int
+-setXrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++setXrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -187,7 +187,7 @@ setXrot_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ 
+ int
+-setYrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++setYrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+diff --git a/Togl/src/Togl/gears.c b/Togl/src/Togl/gears.c
+index 9999a72..2d5657b 100644
+--- a/Togl/src/Togl/gears.c
++++ b/Togl/src/Togl/gears.c
+@@ -322,7 +322,7 @@ init(Togl *togl)
+ }
+ 
+ int
+-position(Togl *togl, int argc, CONST84 char *argv[])
++position(Togl *togl, int argc, const char *argv[])
+ {
+     struct WHIRLYGIZMO *Wg;
+     Tcl_Interp *interp = Togl_Interp(togl);
+@@ -344,7 +344,7 @@ position(Togl *togl, int argc, CONST84 char *argv[])
+ }
+ 
+ int
+-rotate(Togl *togl, int argc, CONST84 char *argv[])
++rotate(Togl *togl, int argc, const char *argv[])
+ {
+     struct WHIRLYGIZMO *Wg;
+     Tcl_Interp *interp = Togl_Interp(togl);
+diff --git a/Togl/src/Togl/stereo.c b/Togl/src/Togl/stereo.c
+index 0a33f1e..1e09161 100644
+--- a/Togl/src/Togl/stereo.c
++++ b/Togl/src/Togl/stereo.c
+@@ -199,7 +199,7 @@ display_cb(Togl *togl)
+ 
+ 
+ int
+-setXrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++setXrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -232,7 +232,7 @@ setXrot_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ 
+ int
+-setYrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++setYrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -262,7 +262,7 @@ setYrot_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ int
+ getXrot_cb(ClientData clientData, Tcl_Interp *interp,
+-        int argc, CONST84 char *argv[])
++        int argc, const char *argv[])
+ {
+     sprintf(interp->result, "%d", (int) xAngle);
+     return TCL_OK;
+@@ -271,7 +271,7 @@ getXrot_cb(ClientData clientData, Tcl_Interp *interp,
+ 
+ int
+ getYrot_cb(ClientData clientData, Tcl_Interp *interp,
+-        int argc, CONST84 char *argv[])
++        int argc, const char *argv[])
+ {
+     sprintf(interp->result, "%d", (int) yAngle);
+     return TCL_OK;
+@@ -279,7 +279,7 @@ getYrot_cb(ClientData clientData, Tcl_Interp *interp,
+ 
+ 
+ int
+-scale_cb(Togl *togl, int argc, CONST84 char *argv[])
++scale_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+diff --git a/Togl/src/Togl/texture.c b/Togl/src/Togl/texture.c
+index 6a6f39f..edb7a09 100644
+--- a/Togl/src/Togl/texture.c
++++ b/Togl/src/Togl/texture.c
+@@ -238,7 +238,7 @@ display_cb(Togl *togl)
+  * Called when a magnification filter radio button is pressed.
+  */
+ int
+-magfilter_cb(Togl *togl, int argc, CONST84 char *argv[])
++magfilter_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -262,7 +262,7 @@ magfilter_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when a minification filter radio button is pressed.
+  */
+ int
+-minfilter_cb(Togl *togl, int argc, CONST84 char *argv[])
++minfilter_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -291,7 +291,7 @@ minfilter_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ 
+ int
+-xrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++xrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -314,7 +314,7 @@ xrot_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ 
+ int
+-yrot_cb(Togl *togl, int argc, CONST84 char *argv[])
++yrot_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -337,7 +337,7 @@ yrot_cb(Togl *togl, int argc, CONST84 char *argv[])
+ 
+ 
+ int
+-scale_cb(Togl *togl, int argc, CONST84 char *argv[])
++scale_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -363,7 +363,7 @@ scale_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when S texture coordinate wrapping is changed.
+  */
+ int
+-swrap_cb(Togl *togl, int argc, CONST84 char *argv[])
++swrap_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -397,7 +397,7 @@ swrap_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when T texture coordinate wrapping is changed.
+  */
+ int
+-twrap_cb(Togl *togl, int argc, CONST84 char *argv[])
++twrap_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -431,7 +431,7 @@ twrap_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when the texture environment mode is changed.
+  */
+ int
+-envmode_cb(Togl *togl, int argc, CONST84 char *argv[])
++envmode_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -467,7 +467,7 @@ envmode_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when the polygon color is changed.
+  */
+ int
+-polycolor_cb(Togl *togl, int argc, CONST84 char *argv[])
++polycolor_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -495,7 +495,7 @@ polycolor_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when the texture image is to be changed
+  */
+ int
+-image_cb(Togl *togl, int argc, CONST84 char *argv[])
++image_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+ 
+@@ -530,7 +530,7 @@ image_cb(Togl *togl, int argc, CONST84 char *argv[])
+  * Called when the texture coordinate scale is changed.
+  */
+ int
+-coord_scale_cb(Togl *togl, int argc, CONST84 char *argv[])
++coord_scale_cb(Togl *togl, int argc, const char *argv[])
+ {
+     Tcl_Interp *interp = Togl_Interp(togl);
+     float   s;
+diff --git a/Togl/src/Togl/togl.c b/Togl/src/Togl/togl.c
+index e2f5134..ad424e2 100644
+--- a/Togl/src/Togl/togl.c
++++ b/Togl/src/Togl/togl.c
+@@ -97,10 +97,10 @@
+ 
+ #if TK_MAJOR_VERSION > 8 || (TK_MAJOR_VERSION == 8 && TK_MINOR_VERSION >= 6)
+ static void (*SetClassProcsPtr)
+-        _ANSI_ARGS_((Tk_Window, const Tk_ClassProcs *, ClientData));
++        (Tk_Window, const Tk_ClassProcs *, ClientData);
+ #else
+ static void (*SetClassProcsPtr)
+-        _ANSI_ARGS_((Tk_Window, Tk_ClassProcs *, ClientData));
++        (Tk_Window, Tk_ClassProcs *, ClientData);
+ #endif
+ #endif
+ 
+@@ -109,11 +109,10 @@ static void (*SetClassProcsPtr)
+  * (this is needed for Tcl ver =< 8.4a3)
+  */
+ 
+-typedef Window (TkClassCreateProc) _ANSI_ARGS_((Tk_Window tkwin,
+-                Window parent, ClientData instanceData));
+-typedef void (TkClassGeometryProc) _ANSI_ARGS_((ClientData instanceData));
+-typedef void (TkClassModalProc) _ANSI_ARGS_((Tk_Window tkwin,
+-                XEvent *eventPtr));
++typedef Window (TkClassCreateProc) (Tk_Window tkwin,
++                Window parent, ClientData instanceData);
++typedef void (TkClassGeometryProc) (ClientData instanceData);
++typedef void (TkClassModalProc) (Tk_Window tkwin, XEvent *eventPtr);
+ typedef struct TkClassProcs
+ {
+     TkClassCreateProc *createProc;
+@@ -288,7 +287,7 @@ struct Togl
+  * Prototypes for functions local to this file
+  */
+ static int Togl_Cmd(ClientData clientData, Tcl_Interp *interp,
+-        int argc, CONST84 char **argv);
++        int argc, const char **argv);
+ static void Togl_EventProc(ClientData clientData, XEvent *eventPtr);
+ static Window Togl_CreateWindow(Tk_Window, Window, ClientData);
+ static void Togl_WorldChanged(ClientData);
+@@ -319,104 +318,104 @@ static void SetMacBufRect(Togl *togl);
+ 
+ static Tk_ConfigSpec configSpecs[] = {
+     {TK_CONFIG_PIXELS, TCL_STUPID "-height", "height", "Height",
+-            DEFAULT_HEIGHT, Tk_Offset(Togl, Height), 0, NULL},
++            DEFAULT_HEIGHT, offsetof(Togl, Height), 0, NULL},
+ 
+     {TK_CONFIG_PIXELS, TCL_STUPID "-width", "width", "Width",
+-            DEFAULT_WIDTH, Tk_Offset(Togl, Width), 0, NULL},
++            DEFAULT_WIDTH, offsetof(Togl, Width), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-setgrid", "setGrid", "SetGrid",
+-            "0", Tk_Offset(Togl, SetGrid), 0},
++            "0", offsetof(Togl, SetGrid), 0},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-rgba", "rgba", "Rgba",
+-            "true", Tk_Offset(Togl, RgbaFlag), 0, NULL},
++            "true", offsetof(Togl, RgbaFlag), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-redsize", "redsize", "RedSize",
+-            "1", Tk_Offset(Togl, RgbaRed), 0, NULL},
++            "1", offsetof(Togl, RgbaRed), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-greensize", "greensize", "GreenSize",
+-            "1", Tk_Offset(Togl, RgbaGreen), 0, NULL},
++            "1", offsetof(Togl, RgbaGreen), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-bluesize", "bluesize", "BlueSize",
+-            "1", Tk_Offset(Togl, RgbaBlue), 0, NULL},
++            "1", offsetof(Togl, RgbaBlue), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-double", "double", "Double",
+-            "false", Tk_Offset(Togl, DoubleFlag), 0, NULL},
++            "false", offsetof(Togl, DoubleFlag), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-depth", "depth", "Depth",
+-            "false", Tk_Offset(Togl, DepthFlag), 0, NULL},
++            "false", offsetof(Togl, DepthFlag), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-depthsize", "depthsize", "DepthSize",
+-            "1", Tk_Offset(Togl, DepthSize), 0, NULL},
++            "1", offsetof(Togl, DepthSize), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-accum", "accum", "Accum",
+-            "false", Tk_Offset(Togl, AccumFlag), 0, NULL},
++            "false", offsetof(Togl, AccumFlag), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-accumredsize", "accumredsize", "AccumRedSize",
+-            "1", Tk_Offset(Togl, AccumRed), 0, NULL},
++            "1", offsetof(Togl, AccumRed), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-accumgreensize", "accumgreensize",
+                 "AccumGreenSize",
+-            "1", Tk_Offset(Togl, AccumGreen), 0, NULL},
++            "1", offsetof(Togl, AccumGreen), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-accumbluesize", "accumbluesize",
+                 "AccumBlueSize",
+-            "1", Tk_Offset(Togl, AccumBlue), 0, NULL},
++            "1", offsetof(Togl, AccumBlue), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-accumalphasize", "accumalphasize",
+                 "AccumAlphaSize",
+-            "1", Tk_Offset(Togl, AccumAlpha), 0, NULL},
++            "1", offsetof(Togl, AccumAlpha), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-alpha", "alpha", "Alpha",
+-            "false", Tk_Offset(Togl, AlphaFlag), 0, NULL},
++            "false", offsetof(Togl, AlphaFlag), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-alphasize", "alphasize", "AlphaSize",
+-            "1", Tk_Offset(Togl, AlphaSize), 0, NULL},
++            "1", offsetof(Togl, AlphaSize), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-stencil", "stencil", "Stencil",
+-            "false", Tk_Offset(Togl, StencilFlag), 0, NULL},
++            "false", offsetof(Togl, StencilFlag), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-stencilsize", "stencilsize", "StencilSize",
+-            "1", Tk_Offset(Togl, StencilSize), 0, NULL},
++            "1", offsetof(Togl, StencilSize), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-auxbuffers", "auxbuffers", "AuxBuffers",
+-            "0", Tk_Offset(Togl, AuxNumber), 0, NULL},
++            "0", offsetof(Togl, AuxNumber), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-privatecmap", "privateCmap", "PrivateCmap",
+-            "false", Tk_Offset(Togl, PrivateCmapFlag), 0, NULL},
++            "false", offsetof(Togl, PrivateCmapFlag), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-overlay", "overlay", "Overlay",
+-            "false", Tk_Offset(Togl, OverlayFlag), 0, NULL},
++            "false", offsetof(Togl, OverlayFlag), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-stereo", "stereo", "Stereo",
+-            "false", Tk_Offset(Togl, StereoFlag), 0, NULL},
++            "false", offsetof(Togl, StereoFlag), 0, NULL},
+ 
+ #ifdef __sgi
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-oldstereo", "oldstereo", "OldStereo",
+-            "false", Tk_Offset(Togl, OldStereoFlag), 0, NULL},
++            "false", offsetof(Togl, OldStereoFlag), 0, NULL},
+ #endif
+ 
+ #ifndef NO_TK_CURSOR
+     {TK_CONFIG_ACTIVE_CURSOR, TCL_STUPID "-cursor", "cursor", "Cursor",
+-            "", Tk_Offset(Togl, Cursor), TK_CONFIG_NULL_OK},
++            "", offsetof(Togl, Cursor), TK_CONFIG_NULL_OK},
+ #endif
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-time", "time", "Time",
+-            DEFAULT_TIME, Tk_Offset(Togl, TimerInterval), 0, NULL},
++            DEFAULT_TIME, offsetof(Togl, TimerInterval), 0, NULL},
+ 
+     {TK_CONFIG_STRING, TCL_STUPID "-sharelist", "sharelist", "ShareList",
+-            NULL, Tk_Offset(Togl, ShareList), 0, NULL},
++            NULL, offsetof(Togl, ShareList), 0, NULL},
+ 
+     {TK_CONFIG_STRING, TCL_STUPID "-sharecontext", "sharecontext",
+-            "ShareContext", NULL, Tk_Offset(Togl, ShareContext), 0, NULL},
++            "ShareContext", NULL, offsetof(Togl, ShareContext), 0, NULL},
+ 
+     {TK_CONFIG_STRING, TCL_STUPID "-ident", "ident", "Ident",
+-            DEFAULT_IDENT, Tk_Offset(Togl, Ident), 0, NULL},
++            DEFAULT_IDENT, offsetof(Togl, Ident), 0, NULL},
+ 
+     {TK_CONFIG_BOOLEAN, TCL_STUPID "-indirect", "indirect", "Indirect",
+-            "false", Tk_Offset(Togl, Indirect), 0, NULL},
++            "false", offsetof(Togl, Indirect), 0, NULL},
+ 
+     {TK_CONFIG_INT, TCL_STUPID "-pixelformat", "pixelFormat", "PixelFormat",
+-            "0", Tk_Offset(Togl, PixelFormat), 0, NULL},
++            "0", offsetof(Togl, PixelFormat), 0, NULL},
+ 
+     {TK_CONFIG_END, NULL, NULL, NULL, NULL, 0, 0, NULL}
+ };
+@@ -1309,7 +1308,7 @@ Togl_Configure(Tcl_Interp *interp, Togl *togl,
+ 
+ static int
+ Togl_Widget(ClientData clientData, Tcl_Interp *interp, int argc,
+-        CONST84 char *argv[])
++        const char *argv[])
+ {
+     Togl   *togl = (Togl *) clientData;
+     int     result = TCL_OK;
+@@ -1425,7 +1424,7 @@ Togl_Widget(ClientData clientData, Tcl_Interp *interp, int argc,
+  */
+ static int
+ Togl_Cmd(ClientData clientData, Tcl_Interp *interp, int argc,
+-        CONST84 char **argv)
++        const char **argv)
+ {
+     const char *name;
+     Tk_Window mainwin = (Tk_Window) clientData;
+diff --git a/Togl/src/Togl/togl.h b/Togl/src/Togl/togl.h
+index 6726a6e..2b07663 100644
+--- a/Togl/src/Togl/togl.h
++++ b/Togl/src/Togl/togl.h
+@@ -59,10 +59,6 @@
+ #    include <X11/extensions/SGIStereo.h>
+ #  endif
+ 
+-#  ifndef CONST84
+-#    define CONST84
+-#  endif
+-
+ #  ifndef TOGL_USE_FONTS
+ #    define TOGL_USE_FONTS 1    /* needed for demos */
+ #  endif
+@@ -98,7 +94,7 @@ struct Togl;
+ typedef struct Togl Togl;
+ 
+ typedef void (Togl_Callback) (Togl *togl);
+-typedef int (Togl_CmdProc) (Togl *togl, int argc, CONST84 char *argv[]);
++typedef int (Togl_CmdProc) (Togl *togl, int argc, const char *argv[]);
+ 
+ TOGL_EXTERN int Togl_Init(Tcl_Interp *interp);
+ 
+-- 
+2.48.1
+

@@ -1,0 +1,81 @@
+From c42edbcfb5b275388b02d23ca24e928d52dd69b1 Mon Sep 17 00:00:00 2001
+From: Jerry James <loganjerry@gmail.com>
+Date: Mon, 17 Feb 2025 09:55:14 +0000
+Subject: [PATCH 4/8] Update Tk code for OCaml 5
+
+---
+ Togl/src/ml_togl.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/Togl/src/ml_togl.c b/Togl/src/ml_togl.c
+index 2f833db..a197c36 100644
+--- a/Togl/src/ml_togl.c
++++ b/Togl/src/ml_togl.c
+@@ -31,13 +31,13 @@ int TOGLenum_val(value tag)
+     {
+ #include "togl_tags.c"
+     }
+-    invalid_argument ("Unknown Togl tag");
++    caml_invalid_argument ("Unknown Togl tag");
+ }
+ 
+ /* Avoid direct use of stderr */
+ void togl_prerr(const char *msg)
+ {
+-    value ml_msg = copy_string(msg);
++    value ml_msg = caml_copy_string(msg);
+     value *prerr = caml_named_value("togl_prerr");
+     if (!prerr) caml_failwith(msg);
+     caml_callback_exn(*prerr, ml_msg);
+@@ -49,7 +49,7 @@ CAMLprim value ml_Togl_Init (value unit)  /* ML */
+     Tcl_Interp *cltclinterp =
+       (interp ? (Tcl_Interp *) Nativeint_val(Field(*interp,0)) : NULL);
+     if (cltclinterp == NULL || Togl_Init(cltclinterp) == TCL_ERROR)
+-      raise_with_string(*caml_named_value("tkerror"), "Togl_Init failed");
++      caml_raise_with_string(*caml_named_value("tkerror"), "Togl_Init failed");
+     return Val_unit;
+ }
+ 
+@@ -77,10 +77,10 @@ static value *callbacks = NULL;
+ 
+ #define CALLBACK(func) \
+ static void callback_##func (struct Togl *togl) \
+-{ callback (Field(*callbacks, func), Val_addr(togl)); }
++{ caml_callback (Field(*callbacks, func), Val_addr(togl)); }
+ #define CALLBACK_const(func) \
+ static void callback_##func (const struct Togl *togl) \
+-{ callback (Field(*callbacks, func), Val_addr(togl)); }
++{ caml_callback (Field(*callbacks, func), Val_addr(togl)); }
+ 
+ #define ENABLER(func) \
+ CAMLprim value ml_Togl_##func (value unit) \
+@@ -106,7 +106,7 @@ ENABLER (OverlayDisplayFunc)
+ ML_0 (Togl_ResetDefaultCallbacks)
+ ML_1 (Togl_PostRedisplay, Addr_val)
+ ML_1 (Togl_SwapBuffers, Addr_val)
+-ML_1_ (Togl_Ident, Addr_val, copy_string)
++ML_1_ (Togl_Ident, Addr_val, caml_copy_string)
+ ML_1_ (Togl_Width, Addr_val, Val_int)
+ ML_1_ (Togl_Height, Addr_val, Val_int)
+ 
+@@ -131,7 +131,7 @@ ML_2 (Togl_UnloadBitmapFont, Addr_val, Int_val)
+ ML_2 (Togl_UseLayer, Addr_val, TOGLenum_val)
+ #ifdef _WIN32
+ CAMLprim value ml_Togl_ShowOverlay(value v)
+-{ invalid_argument("Togl_ShowOverlay: not implemented"); return Val_unit; }
++{ caml_invalid_argument("Togl_ShowOverlay: not implemented"); return Val_unit; }
+ #else
+ ML_1 (Togl_ShowOverlay, Addr_val)
+ #endif
+@@ -146,7 +146,7 @@ CAMLprim value ml_Togl_DumpToEpsFile (value togl, value filename, value rgb)
+     if (Togl_DumpToEpsFile(Addr_val(togl), String_val(filename),
+ 			   Int_val(rgb), callback_RenderFunc)
+ 	== TCL_ERROR)
+-        raise_with_string(*caml_named_value("tkerror"),
++        caml_raise_with_string(*caml_named_value("tkerror"),
+                           "Dump to EPS file failed");
+     return Val_unit;
+ }
+-- 
+2.48.1
+

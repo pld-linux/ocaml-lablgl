@@ -1,0 +1,31 @@
+From 676e27de229569063732da26ce5c7f0c88366891 Mon Sep 17 00:00:00 2001
+From: Jerry James <loganjerry@gmail.com>
+Date: Fri, 1 Dec 2023 13:39:05 -0700
+Subject: [PATCH 2/8] Fix mismatched pointer types for GCC 14
+
+---
+ Togl/src/Togl/togl.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Togl/src/Togl/togl.c b/Togl/src/Togl/togl.c
+index 0fbcd15..e2f5134 100644
+--- a/Togl/src/Togl/togl.c
++++ b/Togl/src/Togl/togl.c
+@@ -95,9 +95,14 @@
+ #  define HAVE_TK_SETCLASSPROCS
+ /* pointer to Tk_SetClassProcs function in the stub table */
+ 
++#if TK_MAJOR_VERSION > 8 || (TK_MAJOR_VERSION == 8 && TK_MINOR_VERSION >= 6)
++static void (*SetClassProcsPtr)
++        _ANSI_ARGS_((Tk_Window, const Tk_ClassProcs *, ClientData));
++#else
+ static void (*SetClassProcsPtr)
+         _ANSI_ARGS_((Tk_Window, Tk_ClassProcs *, ClientData));
+ #endif
++#endif
+ 
+ /* 
+  * Copy of TkClassProcs declarations form tkInt.h
+-- 
+2.48.1
+

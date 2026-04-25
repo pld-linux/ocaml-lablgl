@@ -1,0 +1,32 @@
+From ac8e5b6ac6a99b7b086e27b5881cd7bb79d3df65 Mon Sep 17 00:00:00 2001
+From: Jerry James <loganjerry@gmail.com>
+Date: Thu, 29 Jun 2023 16:16:46 -0600
+Subject: [PATCH 1/8] Avoid possible use-after-free in Togl
+
+---
+ Togl/src/Togl/togl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Togl/src/Togl/togl.c b/Togl/src/Togl/togl.c
+index 0b71b99..0fbcd15 100644
+--- a/Togl/src/Togl/togl.c
++++ b/Togl/src/Togl/togl.c
+@@ -2780,7 +2780,6 @@ noFaultXAllocColor(Display *dpy, Colormap cmap, int cmapSize,
+     subColor.red = ctable[bestmatch].red;
+     subColor.green = ctable[bestmatch].green;
+     subColor.blue = ctable[bestmatch].blue;
+-    free(ctable);
+     /* Try to allocate the closest match color.  This should only fail if the
+      * cell is read/write.  Otherwise, we're incrementing the cell's reference
+      * count. */
+@@ -2792,6 +2791,7 @@ noFaultXAllocColor(Display *dpy, Colormap cmap, int cmapSize,
+         subColor.blue = ctable[bestmatch].blue;
+         subColor.flags = DoRed | DoGreen | DoBlue;
+     }
++    free(ctable);
+     *color = subColor;
+ }
+ 
+-- 
+2.48.1
+
